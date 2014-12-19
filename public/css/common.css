@@ -1,0 +1,41 @@
+.hide {
+    display: none;
+}
+
+#loginbox {
+    margin-top: 50px;
+}
+
+.loginbox-body {
+    padding-top: 30px;
+}
+
+.loginform-input-group {
+    margin-bottom: 25px;
+}
+
+.loginform-button-group {
+    margin-top: 10px;
+}
+
+.loginform-signup-group {
+    border-top: 1px solid#888;
+    padding-top: 15px;
+    font-size: 85%;
+}
+
+#signupbox {
+    margin-top: 50px;
+}
+
+.signupform-signin-group {
+    border-top: 1px solid#888;
+    padding-top: 15px;
+    font-size: 85%
+}
+
+.signupform-birthday-input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}

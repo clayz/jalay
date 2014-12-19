@@ -12,6 +12,7 @@ import core.db._
  */
 case class User(var id: Option[Long] = None,
                 var uuid: String,
+                var password: String,
                 var status: Int,
                 var createDate: Date = new Date(),
                 var updateDate: Option[Date] = None,
@@ -28,13 +29,14 @@ object UserDao extends Dao[User](table = "user") {
   protected val parser = {
     column[Option[Long]]("id") ~
       column[String]("uuid") ~
+      column[String]("password") ~
       column[Int]("status") ~
       column[Date]("create_date", "createDate") ~
       column[Option[Date]]("update_date", "updateDate") ~
       column[Boolean]("del", "del") ~
       column[String]("note") map {
-      case id ~ uuid ~ status ~ createDate ~ updateDate ~ del ~ note =>
-        User(id, uuid, status, createDate, updateDate, del, note)
+      case id ~ uuid ~ password ~ status ~ createDate ~ updateDate ~ del ~ note =>
+        User(id, uuid, password, status, createDate, updateDate, del, note)
     }
   }
 

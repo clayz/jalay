@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel"/>
+
+    <appender name="FILE" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>fileName</key>
+            <defaultValue>unknown</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="FILE-${batchName}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <encoder>
+                    <pattern>%date - [%level] - in %thread %n%message%n%xException%n</pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <FileNamePattern>/var/log/meister/batch/${fileName}.%d{yyyy-MM-dd}.log</FileNamePattern>
+                    <MaxHistory>30</MaxHistory>
+                </rollingPolicy>
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <Pattern>%d %-5level - %msg%n</Pattern>
+                </layout>
+            </appender>
+        </sift>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d %coloredLevel %logger{15} - %message%n%xException{5}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Change level to "DEBUG" for opening debug log on dev environment -->
+    <logger name="Meister" level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+</configuration>

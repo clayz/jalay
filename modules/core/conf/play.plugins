@@ -1,0 +1,3 @@
+5000:com.github.mumoshu.play2.memcached.MemcachedPlugin
+
+1500:com.typesafe.plugin.CommonsMailerPlugin

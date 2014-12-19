@@ -1,0 +1,16 @@
+# Admin Site Routes Configurations
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+GET     /assets/*file                                           controllers.admin.Assets.at(path="/public", file)
+
+# Admin Site Pages
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Home page
+# GET     /index/                                                 controllers.admin.Application.index
+# GET     /login/                                                 controllers.admin.Application.login
+# POST    /login/                                                 controllers.admin.Application.authenticate
+# GET     /logout/                                                controllers.admin.Application.logout
+
+# Admin Site API
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

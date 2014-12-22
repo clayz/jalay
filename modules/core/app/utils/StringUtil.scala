@@ -1,6 +1,6 @@
 package core.utils
 
-import java.security.MessageDigest
+import play.api.libs.Codecs
 import scala.util.Random
 import org.apache.commons.lang.StringUtils
 
@@ -46,12 +46,12 @@ object StringUtil {
   def uuid: String = java.util.UUID.randomUUID.toString.replaceAll("-", "")
 
   /**
-   * Generate MD5 encrypted string.
+   * Generate sha1 encrypted string.
    *
    * @param value Target string to be encrypt.
    * @return Encrypted string data.
    */
-  def md5(value: String): String = new String(MessageDigest.getInstance("MD5").digest(value.getBytes))
+  def md5(value: String): String = Codecs.sha1(value)
 
   def isEmpty(str: String): Boolean = StringUtils.isEmpty(str)
 
@@ -60,6 +60,4 @@ object StringUtil {
   def isBlank(str: String): Boolean = StringUtils.isBlank(str)
 
   def isNotBlank(str: String): Boolean = StringUtils.isNotBlank(str)
-
-
 }

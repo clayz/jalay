@@ -15,17 +15,15 @@ object UserAPI extends APIStartUp(auth) {
   /**
    * Get current login user's profile info. 
    */
-  def getMyProfile = APIActionWithAuth {
-    userId => implicit request =>
-      Ok(this.getProfile(userId))
+  def getMyProfile = APIActionWithAuth { userId => implicit request =>
+    Ok(this.getProfile(userId))
   }
 
   /**
    * Get others profile info.
    */
-  def getUserProfile(userId: Long) = APIAction {
-    implicit request =>
-      Ok(this.getProfile(userId))
+  def getUserProfile(userId: Long) = APIAction { implicit request =>
+    Ok(this.getProfile(userId))
   }
 
   private def getProfile(userId: Long): Map[Symbol, Any] = {

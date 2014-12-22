@@ -1,15 +1,18 @@
-@(ng: String, title: String)(content: Html)
-
-<html ng-app="@ng">
+<!DOCTYPE html>
+<html lang="en" ng-app="jalay">
 <head>
-    <title>@title</title>
+    <title>Welcome to Jalay</title>
     <link rel="stylesheet" media="screen" href='@routes.Assets.at("bower_components/bootstrap/dist/css/bootstrap.min.css")'>
     <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/common.css")'>
     <script src='@routes.Assets.at("bower_components/jquery/dist/jquery.min.js")'></script>
     <script src='@routes.Assets.at("bower_components/bootstrap/dist/js/bootstrap.min.js")'></script>
     <script src='@routes.Assets.at("bower_components/angular/angular.min.js")'></script>
+    <script src='@routes.Assets.at("bower_components/angular-route/angular-route.min.js")'></script>
+    <script src='@routes.Assets.at("js/app.js")'></script>
 </head>
 <body>
-@content
+<div class="container">
+    <div ng-view></div>
+</div>
 </body>
-</html>
+</html> 

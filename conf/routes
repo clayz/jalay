@@ -2,7 +2,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Home page
 GET      /                                                      controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
@@ -14,11 +13,8 @@ GET      /assets/*file                                          controllers.Asse
 ->  /api           api.Routes
 ->  /admin         admin.Routes
 
-# System links
+# System links, developer use only
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Use random string as URL path, in order to prevent this API be invoked by end user.
 GET      /cache/HgldUA0wSEIiFYgXELnOq4yoJgnUMcmK/:model         controllers.Application.clearCache(model)
-
-# Internal links, developer use only, DO NOT PUBLISH UNDER DOMAIN!
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

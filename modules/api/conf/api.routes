@@ -4,7 +4,8 @@
 # Auth
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-POST    /user/register/                                         user.api.AuthAPI.register
+POST    /login/                                                 user.api.AuthAPI.login
+POST    /register/                                              user.api.AuthAPI.register
 
 # User
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

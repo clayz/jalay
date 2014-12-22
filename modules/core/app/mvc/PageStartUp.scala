@@ -20,24 +20,21 @@ abstract class PageStartUp(authUserId: RequestHeader => Option[Long] = Unit => N
    * @param f Concrete page action logic.
    * @return Action[AnyContent] Play action object.
    */
-  def PageAction(f: Request[AnyContent] => Result): Action[AnyContent] = {
-    Action {
-      implicit request =>
-        val start = System.currentTimeMillis
-        var userIdPrefix = ""
+  def PageAction(f: Request[AnyContent] => Result): Action[AnyContent] = Action { implicit request =>
+    val start = System.currentTimeMillis
+    var userIdPrefix = ""
 
-        try {
-          authUserId(request).foreach(id => userIdPrefix = s"[$id] ")
-          Log.info(s"${userIdPrefix}Calling page action: ${request.method} ${request.uri}")
-          f(request)
-        } catch {
-          case e: BaseException => e.handleResult(InternalServerError(views.html.mvc.error500()))
-          case e: Throwable =>
-            Log.error(s"${userIdPrefix}Unknown internal error happened.", e)
-            InternalServerError(views.html.mvc.error500())
-        } finally {
-          Log.info(s"${userIdPrefix}Page action executed: ${request.uri}, TIME: ${System.currentTimeMillis - start}")
-        }
+    try {
+      authUserId(request).foreach(id => userIdPrefix = s"[$id] ")
+      Log.info(s"${userIdPrefix}Calling page action: ${request.method} ${request.uri}")
+      f(request)
+    } catch {
+      case e: BaseException => e.handleResult(InternalServerError(views.html.mvc.error500()))
+      case e: Throwable =>
+        Log.error(s"${userIdPrefix}Unknown internal error happened.", e)
+        InternalServerError(views.html.mvc.error500())
+    } finally {
+      Log.info(s"${userIdPrefix}Page action executed: ${request.uri}, TIME: ${System.currentTimeMillis - start}")
     }
   }
 
@@ -48,30 +45,28 @@ abstract class PageStartUp(authUserId: RequestHeader => Option[Long] = Unit => N
    * @param f Concrete page action logic.
    * @return Action[AnyContent] Play action object.
    */
-  def PageActionWithAuth(f: => Long => (Request[AnyContent]) => Result): Action[AnyContent] = {
-    Action {
-      implicit request =>
-        val start = System.currentTimeMillis
-        var userIdPrefix = ""
+  def PageActionWithAuth(f: => Long => (Request[AnyContent]) => Result): Action[AnyContent] = Action { implicit request =>
+    val start = System.currentTimeMillis
+    var userIdPrefix = ""
 
-        try {
-          authUserId(request) match {
-            case Some(id) =>
-              userIdPrefix = s"[$id] "
-              Log.info(s"${userIdPrefix}Calling page action: ${request.method} ${request.uri}")
-              f(id)(request)
-            case _ =>
-              Log.warn(s"Anonymous user try to access page: ${request.method} ${request.uri}")
-              Forbidden(views.html.mvc.error404())
-          }
-        } catch {
-          case e: BaseException => e.handleResult(InternalServerError(views.html.mvc.error500()))
-          case e: Throwable =>
-            Log.error(s"${userIdPrefix}Unknown internal error happened.", e)
-            InternalServerError(views.html.mvc.error500())
-        } finally {
-          Log.info(s"${userIdPrefix}Page action executed: ${request.uri}, TIME: ${System.currentTimeMillis - start}")
-        }
+    try {
+      authUserId(request) match {
+        case Some(id) =>
+          userIdPrefix = s"[$id] "
+          Log.info(s"${userIdPrefix}Calling page action: ${request.method} ${request.uri}")
+          f(id)(request)
+        case _ =>
+          Log.warn(s"Anonymous user try to access page: ${request.method} ${request.uri}")
+          Forbidden(views.html.mvc.error404())
+      }
+    } catch {
+      case e: BaseException => e.handleResult(InternalServerError(views.html.mvc.error500()))
+      case e: Throwable =>
+        Log.error(s"${userIdPrefix}Unknown internal error happened.", e)
+        InternalServerError(views.html.mvc.error500())
+    } finally {
+      Log.info(s"${userIdPrefix}Page action executed: ${request.uri}, TIME: ${System.currentTimeMillis - start}")
     }
   }
+
 }

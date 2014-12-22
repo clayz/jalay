@@ -153,7 +153,7 @@ object Form {
    * @param default Default value if field is not giving.
    * @return Boolean validator function.
    */
-  def boolean(required: Boolean = true, default: Option[Int] = None): (String, Option[String]) => String = (field, valueOpt) => {
+  def boolean(required: Boolean = true, default: Option[Boolean] = None): (String, Option[String]) => String = (field, valueOpt) => {
     var value = valueOpt.getOrElse("")
 
     if (StringUtil.isBlank(value)) {

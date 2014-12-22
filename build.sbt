@@ -4,7 +4,7 @@ Common.settings
 
 play.Project.playScalaSettings
 
-lazy val main = project.in(file(".")).dependsOn(core, api, batch, admin).aggregate(admin).settings(
+lazy val jalay = project.in(file(".")).dependsOn(core, api, batch, admin).aggregate(admin).settings(
   scalacOptions ++= Seq("-feature", "-language:reflectiveCalls"),
   sources in(Compile, doc) := Seq.empty
 )

@@ -1,9 +1,13 @@
 package user.api
 
-import auth._
+import core.db._
 import core.mvc._
 import core.mvc.Form._
-import core.common._
+import core.common.APIException
+import core.utils._
+import auth._
+import user.common._
+import user.model._
 
 /**
  * API for serving user authentication and authorization related requests.
@@ -25,12 +29,30 @@ object AuthAPI extends APIStartUp(auth) {
   def register = APIAction {
     implicit request =>
       val form = registerForm.bind()
-      Log.info(">>>>>>>>>>>>>>>>>>> email: " + form('email))
-      Log.info(">>>>>>>>>>>>>>>>>>> nickname: " + form('nickname))
-      Log.info(">>>>>>>>>>>>>>>>>>> password: " + form('password))
-      Log.info(">>>>>>>>>>>>>>>>>>> birthday: " + form('birthday))
-      Log.info(">>>>>>>>>>>>>>>>>>> gender: " + form('gender))
+      val mail = form('email)
+      val nickname = form('nickname)
 
-      Ok()
+      if (UserDao.getByMail(mail).isDefined)
+        throw new APIException(UserStatusCode.REG_MAIL_EXISTS)
+      if (UserProfileDao.getByNickname(nickname).isDefined)
+        throw new APIException(UserStatusCode.REG_NICKNAME_EXISTS)
+
+      val uuid = StringUtil.uuid
+
+      DB.withTransaction() { implicit connection =>
+        val id = UserDao.save(User(
+          uuid = uuid,
+          mail = mail,
+          password = StringUtil.md5(form('password)),
+          status = UserConstant.UserStatus.ACTIVE))
+
+        UserProfileDao.save(UserProfile(
+          userId = id,
+          nickname = nickname,
+          birthday = DateUtil.str2Date(form('birthday)),
+          gender = form('gender).toInt))
+      }
+
+      Ok(Map('uuid -> uuid))
   }
 }

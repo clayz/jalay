@@ -1,13 +1,8 @@
 package core.utils
 
 import java.text.SimpleDateFormat
-import java.util.{Date, Locale}
-import java.util.Calendar
-import org.apache.commons.lang.StringUtils
+import java.util._
 import core.common.CommonException
-import java.util.Calendar
-import java.util.regex.Pattern
-import java.text.DateFormat._
 
 /**
  * Date handling and formatting utility functions.
@@ -75,7 +70,7 @@ object DateUtil {
    * @return Date Date value after format.
    */
   def str2Date(date: String, format: String = Format.YYYY_MM_DD, local: Locale = Locale.JAPAN): Date = date match {
-    case ds if (StringUtils.isNotBlank(date)) => try {
+    case ds if (StringUtil.isNotBlank(date)) => try {
       new SimpleDateFormat(format, local).parse(date)
     } catch {
       case e: java.text.ParseException => new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(date)
@@ -92,7 +87,7 @@ object DateUtil {
    */
   def date2Str(date: Date, format: String = Format.YYYY_MM_DD_HH_MI_SS, local: Locale = Locale.JAPAN): String = {
     if (date != null)
-      if (StringUtils.isNotBlank(format)) new SimpleDateFormat(format, local).format(date)
+      if (StringUtil.isNotBlank(format)) new SimpleDateFormat(format, local).format(date)
       else new SimpleDateFormat(Format.YYYY_MM_DD_HH_MI_SS, local).format(date)
     else throw new CommonException("Date value cannot be null.")
   }

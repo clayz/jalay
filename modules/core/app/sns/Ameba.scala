@@ -4,11 +4,11 @@ import java.util.Date
 import java.net.URLEncoder
 import scala.util._
 import scala.concurrent._
-import org.apache.commons.lang.StringUtils
 import play.api.libs.ws._
 import play.api.libs.json.Json
 import play.api.libs.concurrent.Execution.Implicits._
 import core.common._
+import core.utils.StringUtil
 
 /**
  * Ameba API utility.
@@ -207,7 +207,7 @@ object Ameba {
    * @throws HttpException Refresh token failed.
    */
   def refreshToken(refreshToken: String, expireDate: Option[Date]): Option[Map[Symbol, String]] =
-    if (StringUtils.isNotBlank(refreshToken) && (expireDate.isEmpty || expireDate.get.before(new Date))) {
+    if (StringUtil.isNotBlank(refreshToken) && (expireDate.isEmpty || expireDate.get.before(new Date))) {
       Log.debug(s"Ameba refresh token: $refreshToken")
 
       val result = Await.result(WS.url(URL.REFRESH_TOKEN).post(Map(

@@ -34,7 +34,7 @@ object UserAPI extends APIStartUp(auth) {
 
     Map(
       'nickname -> profile.nickname,
-      'mail -> profile.mail,
+      'mail -> user.mail,
       'birthday -> profile.birthday,
       'gender -> profile.gender,
       'status -> user

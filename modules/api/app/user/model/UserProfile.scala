@@ -13,8 +13,7 @@ import user.common.UserConstant.Gender
 case class UserProfile(var id: Option[Long] = None,
                        var userId: Long,
                        var nickname: String,
-                       var mail: String,
-                       var birthday: Option[Date] = None,
+                       var birthday: Date,
                        var gender: Int = Gender.UNKNOWN,
                        var createDate: Date = new Date(),
                        var updateDate: Option[Date] = None,
@@ -32,17 +31,18 @@ object UserProfileDao extends Dao[UserProfile](table = "user_profile") {
     column[Option[Long]]("id") ~
       column[Long]("user_id", "userId") ~
       column[String]("nickname") ~
-      column[String]("mail") ~
-      column[Option[Date]]("birthday", defaultValue = "0000-00-00") ~
+      column[Date]("birthday", defaultValue = "0000-00-00") ~
       column[Int]("gender") ~
       column[Date]("create_date", "createDate") ~
       column[Option[Date]]("update_date", "updateDate") ~
       column[Boolean]("del", "del") ~
       column[String]("note") map {
-      case id ~ userId ~ nickname ~ mail ~ birthday ~ gender ~ createDate ~ updateDate ~ del ~ note =>
-        UserProfile(id, userId, nickname, mail, birthday, gender, createDate, updateDate, del, note)
+      case id ~ userId ~ nickname ~ birthday ~ gender ~ createDate ~ updateDate ~ del ~ note =>
+        UserProfile(id, userId, nickname, birthday, gender, createDate, updateDate, del, note)
     }
   }
 
   def getByUser(userId: Long) = getModel(SQL where "user_id = {userId}")('userId -> userId)
+
+  def getByNickname(nickname: String) = getModel(SQL where "nickname = {nickname}")('nickname -> nickname)
 }

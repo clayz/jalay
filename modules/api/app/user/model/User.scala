@@ -12,6 +12,7 @@ import core.db._
  */
 case class User(var id: Option[Long] = None,
                 var uuid: String,
+                var mail: String,
                 var password: String,
                 var status: Int,
                 var createDate: Date = new Date(),
@@ -29,16 +30,19 @@ object UserDao extends Dao[User](table = "user") {
   protected val parser = {
     column[Option[Long]]("id") ~
       column[String]("uuid") ~
+      column[String]("mail") ~
       column[String]("password") ~
       column[Int]("status") ~
       column[Date]("create_date", "createDate") ~
       column[Option[Date]]("update_date", "updateDate") ~
       column[Boolean]("del", "del") ~
       column[String]("note") map {
-      case id ~ uuid ~ password ~ status ~ createDate ~ updateDate ~ del ~ note =>
-        User(id, uuid, password, status, createDate, updateDate, del, note)
+      case id ~ uuid ~ mail ~ password ~ status ~ createDate ~ updateDate ~ del ~ note =>
+        User(id, uuid, mail, password, status, createDate, updateDate, del, note)
     }
   }
 
   def getByUUID(uuid: String) = getModel(SQL where "uuid = {uuid}")('uuid -> uuid)
+
+  def getByMail(mail: String) = getModel(SQL where "mail = {mail}")('mail -> mail)
 }

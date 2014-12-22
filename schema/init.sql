@@ -1,6 +1,7 @@
 CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `uuid` varchar(36) NOT NULL,
+  `mail` VARCHAR(255) NOT NULL,
   `password` varchar(45) NOT NULL,
   `status` tinyint(2) NOT NULL,
   `createDate` datetime NOT NULL,
@@ -16,7 +17,6 @@ CREATE TABLE `jalay`.`user_profile` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
   `nickname` VARCHAR(50) NOT NULL,
-  `mail` VARCHAR(255) NOT NULL,
   `birthday` DATE NOT NULL,
   `gender` TINYINT(2) NOT NULL,
   `createDate` DATETIME NOT NULL,

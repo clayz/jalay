@@ -135,11 +135,11 @@ case class APIException(statusCode: (String, String), message: String, cause: Op
  * @version 1.0.0
  */
 case class PageException(message: String, cause: Option[Throwable]) extends BaseException(message, cause) {
-  def this() = this(CommonStatusCode.MSG_UNKNOWN_ERROR, None)
+  def this() = this(CommonStatusCode.ERROR._2, None)
 
   def this(message: String) = this(message, None)
 
-  def this(cause: Throwable) = this(CommonStatusCode.MSG_UNKNOWN_ERROR, Some(cause))
+  def this(cause: Throwable) = this(CommonStatusCode.ERROR._2, Some(cause))
 
   def this(message: String, cause: Throwable) = this(message, Some(cause))
 }

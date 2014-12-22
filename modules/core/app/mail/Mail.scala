@@ -1,10 +1,10 @@
 package core.mail
 
 import collection.mutable.Set
-import org.apache.commons.lang.StringUtils
 import com.typesafe.plugin._
 import play.api.Play.current
 import core.common._
+import core.utils.StringUtil
 
 /**
  * Mail contact object, contains mail address and contact name.
@@ -13,7 +13,7 @@ import core.common._
  * @version 1.0.0
  */
 case class Contact(mail: String, name: String = "") {
-  override def toString: String = if (StringUtils.isBlank(name)) this.mail else "%s <%s>".format(this.name, this.mail)
+  override def toString: String = if (StringUtil.isBlank(name)) this.mail else "%s <%s>".format(this.name, this.mail)
 }
 
 /**

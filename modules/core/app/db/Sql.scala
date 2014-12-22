@@ -1,9 +1,9 @@
 package core.db
 
 import collection.mutable
-import org.apache.commons.lang.StringUtils
 import core.common.Constant.DB._
 import core.common.DBException
+import core.utils.StringUtil
 
 /**
  * Supported SQL types for Sql utility object.
@@ -308,7 +308,7 @@ case class Sql[T <: Model](mapper: ModelMapper[T]) {
 
             sql += "WHERE %s ".format(wrapper.where match {
               case Some(value) =>
-                if (StringUtils.isBlank(value))
+                if (StringUtil.isBlank(value))
                   " %s.del = false ".format(wrapper.getAlias())
                 else
                   value + " AND %s.del = false ".format(wrapper.getAlias())
@@ -352,7 +352,7 @@ case class Sql[T <: Model](mapper: ModelMapper[T]) {
 
         sql += "WHERE %s ".format(wrapper.where match {
           case Some(value) =>
-            if (StringUtils.isBlank(value))
+            if (StringUtil.isBlank(value))
               " %s.del = false ".format(wrapper.getAlias())
             else
               value + " AND %s.del = false ".format(wrapper.getAlias())

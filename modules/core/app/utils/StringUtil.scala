@@ -1,8 +1,8 @@
 package core.utils
 
+import java.security.MessageDigest
 import scala.util.Random
 import org.apache.commons.lang.StringUtils
-import core.common.Log
 
 /**
  * String operation utilities.
@@ -44,6 +44,14 @@ object StringUtil {
    * @return String Generated UUID value.
    */
   def uuid: String = java.util.UUID.randomUUID.toString.replaceAll("-", "")
+
+  /**
+   * Generate MD5 encrypted string.
+   *
+   * @param value Target string to be encrypt.
+   * @return Encrypted string data.
+   */
+  def md5(value: String): String = new String(MessageDigest.getInstance("MD5").digest(value.getBytes))
 
   def isEmpty(str: String): Boolean = StringUtils.isEmpty(str)
 

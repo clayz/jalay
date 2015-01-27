@@ -12,3 +12,17 @@ POST    /register/                                              user.api.AuthAPI
 
 GET     /user/profile/my/                                       user.api.UserAPI.getMyProfile
 GET     /user/profile/:userId/                                  user.api.UserAPI.getUserProfile(userId: Long)
+
+# Demo API, these API is only for internal help, remove them before release.
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Common API usage
+GET     /user/simple/                                           user.api.UserAPI.simple
+GET     /user/withstatuscode/                                   user.api.UserAPI.withStatusCode
+GET     /user/withauth/                                         user.api.UserAPI.withAuth
+GET     /user/withdata/                                         user.api.UserAPI.withData
+GET     /user/withcomplexdata/                                  user.api.UserAPI.withComplexData
+
+# Model integrated usage
+GET     /user/get/:id/                                          user.api.UserAPI.getUser(id: Int)
+# GET     /user/create/                                           user.api.UserAPI.create

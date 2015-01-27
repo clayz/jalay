@@ -21,4 +21,10 @@ object UserConstant {
     val MALE = 2
   }
 
+  object AddressType {
+    val HOME = 1
+    val WORK = 2
+    val OTHER = 3
+  }
+
 }

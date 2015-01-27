@@ -26,3 +26,17 @@ CREATE TABLE `jalay`.`user_profile` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uuid_UNIQUE` (`user_id` ASC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jalay`.`address` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL,
+  `address_type` TINYINT(2) NOT NULL,
+  `zip_code` VARCHAR(45) NOT NULL,
+  `street` VARCHAR(255) NOT NULL,
+  `create_date` DATETIME NOT NULL,
+  `update_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `del` TINYINT(1) NOT NULL DEFAULT '0',
+  `note` VARCHAR(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  INDEX `user_idx` (`user_id` ASC)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
